@@ -21,7 +21,7 @@ BTN_URL_REGEX = re.compile(
     r"(\[([^\[]+?)\]\((buttonurl|buttonalert):(?:/{0,2})(.+?)(:same)?\))"
 )
 
-imdb = IMDb() 
+ia = imdb.IMDb() 
 
 BANNED = {}
 SMART_OPEN = '“'
@@ -68,7 +68,7 @@ async def get_poster(query, bulk=False, id=False, file=None):
                 year = list_to_str(year[:1]) 
         else:
             year = None
-        movieid = imdb.search_movie(title.lower(), results=10)
+        movieid = ia.search_movie(title.lower(), results=10)
         if not movieid:
             return None
         if year:
@@ -85,7 +85,7 @@ async def get_poster(query, bulk=False, id=False, file=None):
         movieid = movieid[0].movieID
     else:
         movieid = query
-    movie = imdb.get_movie(movieid)
+    movie = ia.get_movie(movieid)
     if movie.get("original air date"):
         date = movie["original air date"]
     elif movie.get("year"):
